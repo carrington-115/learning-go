@@ -28,4 +28,9 @@ func main() {
 	var londonPosition int = 2
 	cities = append(cities[:londonPosition], cities[londonPosition+1:]...)
 	fmt.Println("Updated cities without London: ", cities)
+
+	// Looping cities
+	for val := range len(cities) {
+		fmt.Println("City: ", cities[val])
+	}
 }
