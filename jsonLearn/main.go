@@ -16,6 +16,17 @@ func main() {
 	fmt.Println("This is how JSON works")
 	testCase := createJSON()
 	fmt.Println(testCase)
+
+	// decoding
+	fmt.Println("\nDECODING THE JSON WEB DATA")
+	var fromWeb string = `
+		{
+    	    "name": "Peter",
+    	    "email": "peter@email.com",
+    	    "is_student": true
+    	}
+	`
+	decodeJSON(fromWeb)
 }
 
 func createJSON() string {
@@ -29,6 +40,32 @@ func createJSON() string {
 	data, err := json.MarshalIndent(users, "", "\t")
 	handleError(err)
 	return string(data)
+}
+
+func decodeJSON(data string) {
+	var uniqueUser user
+	webData := []byte(data)
+	var isValid bool = json.Valid(webData)
+
+	if isValid {
+		fmt.Println("The JSON data from the web is valid type")
+		json.Unmarshal(webData, &uniqueUser)
+		fmt.Println(uniqueUser)
+	} else {
+		fmt.Println("The Data was not of valid JSON type")
+	}
+
+	// populating in another way
+	var unpopulatedData map[string]interface{}
+	json.Unmarshal(webData, &unpopulatedData)
+	fmt.Println("Decoded unpopulated data: ")
+	fmt.Println(unpopulatedData)
+
+	// looping
+	for key, val := range unpopulatedData {
+		fmt.Printf("Key is %v, Value is %v, Value type is %T\n", key, val, val)
+	}
+
 }
 
 func handleError(err error) {
