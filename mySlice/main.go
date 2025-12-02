@@ -33,4 +33,10 @@ func main() {
 	for val := range len(cities) {
 		fmt.Println("City: ", cities[val])
 	}
+
+	// for i, i
+	fmt.Println("Printing with i and j: ")
+	for i, j := range cities {
+		fmt.Printf("i: %v, j: %v \n", i, j)
+	}
 }
